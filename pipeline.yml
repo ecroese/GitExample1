@@ -1,0 +1,74 @@
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+
+pool:
+  vmImage: 'windows-latest'
+
+trigger:
+  branches:
+    include:
+      - 'main'
+
+variables:
+- name: tf_version
+  value: 'latest'
+- name: backend_storage_account_rg
+  value: 'devopsnis-weu-centralit-rg'
+- name: location
+  value: 'westeurope'
+- name: backend_storage_account_container
+  value: 'tf-network-solution-new-buildings'
+- name: backend_state_file_name
+  value: 'terraform.state'
+- name: backend_svc_connection 
+  value: 'fontys-dienstit-ta-devops'
+- name: backend_storage_account
+  value: 'fontystaterraform01'
+
+stages:
+- stage: Terraform
+  displayName: Terraform
+  jobs: 
+  - job: Terraform
+    displayName: Do Terraform
+    steps:
+    - task: TerraformInstaller@0
+      displayName: 'Install Terraform' 
+      inputs:
+        terraformVersion: $(tf_version)
+
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform Init'
+      inputs:
+        provider: 'azurerm'
+        command: init 
+        backendServiceArm: '$(backend_svc_connection)'
+        backendAzureRmStorageAccountName: '$(backend_storage_account)'
+        backendAzureRmContainerName: '$(backend_storage_account_container)'
+        backendAzureRmKey: '$(backend_state_file_name)'
+        backendAzureRmResourceGroupName: '$(backend_storage_account_rg)'
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform Validate TA'
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform Plan TA'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: '$(backend_svc_connection)'
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+      - task: TerraformTaskV2@2
+        displayName: 'Terraform Apply TA'
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          commandOptions: '-auto-approve -input=false'
+          environmentServiceNameAzureRM: '$(backend_svc_connection)'
+          workingDirectory: '$(Build.SourcesDirectory)'
