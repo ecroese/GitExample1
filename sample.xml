@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?> {------ prolog)
+<People>    {--- root tag}
+    <Person Id="1">
+        <FirstName>iesieeezee</FirstName>
+        <LastName>Croese</LastName>
+        <Email>ecro01@live.com</Email>
+    </Person>
+
+    <Person Id="2">
+        <FirstName>Pieterke</FirstName>
+        <LastName>jansen</LastName>
+        <Email>Pieterke@live.com</Email>
+    </Person>
+
+    <Person Id="3">
+        <FirstName>Miep</FirstName>
+        <LastName>Klaasjes</LastName>
+        <Email>Miepje@live.com</Email>
+    </Person>
+
+</People>
+
+
