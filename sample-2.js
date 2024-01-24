@@ -8,8 +8,8 @@ myobj = {"People":[
     },
     {
         "Id": 2,
-        "Firstname": "Pieeeterje",
-        "Lastname": "Fretskje",
+        "name": {"Firstname": "Pieeeterje", "Lastname": "Fretskje"},
+        "naam": ["Pieeeterje", "Fretskje"],
         "Email": "Fretske@gmail.com",
         "Active" : false
     },
@@ -25,3 +25,7 @@ myobj = {"People":[
 console.log(typeof myobj.People[1].Id);
 console.log(typeof myobj.People[2].Active);
 console.log(typeof myobj.People[0].Email);
+console.log(myobj.People[1].name);
+console.log(myobj.People[1].naam);
+console.log(myobj.People[1].naam[1]);
+console.log(myobj.People[1].naam[0]);

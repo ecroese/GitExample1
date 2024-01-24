@@ -1,0 +1,28 @@
+---
+  people:
+    - Id: 1
+      Code: 231.33
+      Firstname: Lamme
+      LastName: joris
+      Email: Lamme@hotmail.com
+      Active: true
+    - Id: 2
+      Code: 224.312
+      Firstname: SLome
+      LastName: Sjonnie
+      Email: sjonnie@hotmail.com
+      Active: false
+    - Id: 3
+      Code: 122.373
+      Firstname: Femke
+      LastName: Genssen
+      Email: Femmie@hotmail.com
+      Active: true
+      ...
+--- #This is the start of a new document in YAML
+  ANumbe: 223
+  AFloat: 20.099
+  AString: Wan een onzin!
+           Deze regel wordt achter de vorige regel geplakt.
+  AQuotedString: "Aanhalingstekens jonguh.\nEen nieuwe regel!"
+  Active: false
