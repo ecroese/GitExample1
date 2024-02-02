@@ -5,6 +5,7 @@ jsonstr = """{"people":[{"Id":"1","FirstName":"Pieterke":"LastName":"Jansen",
     "Email":"Pet.Jenson@gmail.com"},{"Id":"3","FirstName":"Letekke":"LastName":"Johansön",
     "Email":"Let.Johannsön@hotmail.com"}]}"""
 
+
 jsonobj = json.loads(jsonstr)
 
 print(jsonobj)
